@@ -3,10 +3,9 @@ import java.util.ArrayList;
 import model.Person;
 
 public class PersonDatabase {
-
+        private ArrayList<Person> personen = new ArrayList<>();
     public static void main(String[] args) {
 
-        ArrayList<Person> personen = new ArrayList<>();
 
         Person malte = new Person(
                 "Malte",
@@ -122,5 +121,28 @@ public class PersonDatabase {
                 false            //.
         );
         personen.add(volkan);
+
+        Person zinat = new Person(
+                "Zinat",                //.
+                "weiblich",           //.
+                19,                      //.
+                "dunkel",          //.
+                true,                //.
+                "DP",                    //.
+                false,                 //.
+                false,             //.
+                false,
+                true,               //.
+                "Apple",               //.
+                false,        //.
+                false,                   //.
+                true,                   //.
+                false,
+                false,
+                true,
+                false,
+                false
+        );
+        personen.add(gaya);
     }
 }
