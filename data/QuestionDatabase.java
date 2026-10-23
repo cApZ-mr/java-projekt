@@ -13,38 +13,30 @@ public class QuestionDatabase {
                 "Ist deine Person männlich?",
                 "male"
         ));
-
         questions.add(new Question(
                 "Ist deine Person unter 24 Jahre alt?",
                 "under24"
         ));
-
         questions.add(new Question(
                 "Ist deine Person über 24 Jahre alt?",
                 "over24"
         ));
-
         questions.add(new Question(
                 "Trägt deine Person eine Brille?",
                 "glasses"
         ));
-
         questions.add(new Question(
                 "Hat deine Person einen Bart?",
                 "beard"
         ));
-
         questions.add(new Question(
                 "Hat deine Person ein Haustier?",
                 "pet"
-        ));
-        
+        ));    
         questions.add(new Question(
                 "Ist deine Person AEler?",
                 "job"
-
         ));
-
         questions.add(new Question(
                 "Ist deine Person aus Europa?",
                 "ethnicity"
