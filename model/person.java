@@ -9,7 +9,7 @@ public class Person {
     private boolean glasses;        // Trägt Brille Ja/Nein
     private String job;             // Vertiefungsrichtung
     private boolean beard;          // Hat Bart Ja/Nein
-    private String ethnicity;       // Kommt aus Asien/Europa Ja/Nein
+    private boolean ethnicity;      // Kommt aus Asien/Europa Ja/Nein
     private boolean pet;            // Hat Haustier Ja/Nein
     private boolean siblings;       // Hat Geschwister Ja/Nein
     private String phone;           // Apple oder Android
@@ -23,7 +23,7 @@ public class Person {
     private boolean meme;           // Ist die Person ein Meme (Bekannt für etwas)
 
     public Person(String name, String gender, int age, String hairColor,
-                  boolean glasses, String job, boolean beard, String ethnicity,
+                  boolean glasses, String job, boolean beard, boolean ethnicity,
                   boolean pet, boolean siblings, String phone, boolean driverslicense,
                   boolean car, boolean city, boolean vegetarian, boolean tea,
                   boolean smoke, boolean partner, boolean meme) {
@@ -77,7 +77,7 @@ public class Person {
         return beard;
     }
 
-    public String getEthnicity() {
+    public boolean getEthnicity() {
         return ethnicity;
     }
 
