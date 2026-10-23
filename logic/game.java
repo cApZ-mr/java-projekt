@@ -33,6 +33,7 @@ public class Game {
             System.out.println("1 = Ja");
             System.out.println("2 = Nein");
 
+            System.out.print("Antwort: ");
             int input = scanner.nextInt();
 
             boolean userAnswer;
@@ -57,6 +58,46 @@ public class Game {
             }
         }
 
+        scanner.close();
         showResult();
     }
+
+    private void filterPersons(Question question, boolean userAnswer) {
+
+        persons.removeIf(person ->
+                question.matches(person) != userAnswer
+        );
+    }
+
+
+    private void showResult() {
+
+        System.out.println();
+
+        if (persons.size() == 1) {
+
+            System.out.println(
+                    "Deine Person ist: " + persons.get(0).getName()
+            );
+
+        } else if (persons.isEmpty()) {
+
+            System.out.println(
+                    "Keine Person passt zu deinen Antworten."
+            );
+
+        } else {
+
+            System.out.println(
+                    "Ich konnte die Person nicht eindeutig bestimmen."
+            );
+
+            System.out.println("Mögliche Personen:");
+
+            for (Person person : persons) {
+                System.out.println(person.getName());
+            }
+        }
+    }
 }
+

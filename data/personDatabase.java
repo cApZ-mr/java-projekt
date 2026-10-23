@@ -1,11 +1,13 @@
 package data;
+
 import java.util.ArrayList;
 import model.Person;
 
 public class PersonDatabase {
-        private ArrayList<Person> personen = new ArrayList<>();
-    public static void main(String[] args) {
 
+    private ArrayList<Person> persons = new ArrayList<>();
+
+    public PersonDatabase() {
 
         Person malte = new Person(
                 "Malte",
@@ -28,9 +30,10 @@ public class PersonDatabase {
                 true,
                 true
         );
-        personen.add(malte);
+        persons.add(malte);
 
-          Person timon = new Person(
+
+        Person timon = new Person(
                 "Timon",
                 "männlich",
                 22,
@@ -51,9 +54,10 @@ public class PersonDatabase {
                 false,
                 false
         );
-        personen.add(timon);
+        persons.add(timon);
 
-          Person ben = new Person(
+
+        Person ben = new Person(
                 "Ben",
                 "männlich",
                 22,
@@ -74,9 +78,10 @@ public class PersonDatabase {
                 true,
                 true
         );
-        personen.add(ben);
+        persons.add(ben);
 
-          Person gaya = new Person(
+
+        Person gaya = new Person(
                 "Gaya",
                 "männlich",
                 23,
@@ -97,52 +102,35 @@ public class PersonDatabase {
                 false,
                 false
         );
-        personen.add(gaya);
+        persons.add(gaya);
 
-          Person volkan = new Person(
-                "Volkan",       //.
-                "männlich",   //.
+
+        Person volkan = new Person(
+                "Volkan",
+                "männlich",
                 22,
                 "dunkel",
                 false,
                 "AE",
                 true,
-                true,       //ändern
+                true,
                 false,
-                true,        //.
-                "Apple",        //.
-                false, //.
-                false,            //.
-                true,            //.
-                false,
-                false,
-                false,          //.
-                true,         //.
-                false            //.
-        );
-        personen.add(volkan);
-
-        Person zinat = new Person(
-                "Zinat",                //.
-                "weiblich",           //.
-                19,                      //.
-                "dunkel",          //.
-                true,                //.
-                "DP",                    //.
-                false,                 //.
-                false,             //.
-                false,
-                true,               //.
-                "Apple",               //.
-                false,        //.
-                false,                   //.
-                true,                   //.
+                true,
+                "Apple",
                 false,
                 false,
                 true,
                 false,
+                false,
+                false,
+                true,
                 false
         );
-        personen.add(gaya);
+        persons.add(volkan);
+    }
+
+
+    public ArrayList<Person> getPersons() {
+        return persons;
     }
 }
