@@ -1,33 +1,33 @@
 package data;
 import java.util.ArrayList;
-import model.person;
+import model.Person;
 
-public class personDatabase {
+public class PersonDatabase {
 
     public static void main(String[] args) {
 
-         ArrayList<person> personen = new ArrayList<>();
+        ArrayList<Person> personen = new ArrayList<>();
 
-        person malte = new person(
+        Person malte = new Person(
                 "Malte",
                 "männlich",
-                "unter24",
+                20,
                 "braun",
-                "nein",
+                false,
                 "AE",
-                "nein",
+                true,
                 "Europa",
-                "ja",
-                "ja",
+                true,
+                true,
                 "Apple",
-                "ja",
-                "nein",
-                "ja",
-                "nein",
-                "ja",
-                "nein",
-                "nein",
-                "ja"
+                false,
+                false,
+                true,
+                false,
+                false,
+                true,
+                true,
+                true
         );
         personen.add(malte);
     }
