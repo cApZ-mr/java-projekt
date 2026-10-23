@@ -30,5 +30,74 @@ public class PersonDatabase {
                 true
         );
         personen.add(malte);
+
+          Person timon = new Person(
+                "Timon",
+                "männlich",
+                22,
+                "braun",
+                false,
+                "SI",
+                false,
+                "Europa",
+                true,
+                true,
+                "Android",
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                false,
+                false
+        );
+        personen.add(timon);
+
+          Person ben = new Person(
+                "Ben",
+                "männlich",
+                22,
+                "braun",
+                false,
+                "AE",
+                false,
+                "Europa",
+                true,
+                true,
+                "Android",
+                true,
+                true,
+                false,
+                false,
+                false,
+                false,
+                true,
+                true
+        );
+        personen.add(ben);
+
+          Person gaya = new Person(
+                "Gaya",
+                "männlich",
+                23,
+                "braun",
+                true,
+                "SI",
+                false,
+                "Asien",
+                false,
+                false,
+                "Apple",
+                true,
+                true,
+                false,
+                false,
+                false,
+                true,
+                false,
+                false
+        );
+        personen.add(gaya);
     }
 }
