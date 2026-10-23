@@ -22,6 +22,31 @@ public class person {
     private String partner;         // Hat Freund/Freundin
     private String meme;            // Ist die Person ein Meme (Bekannt für etwas)
 
+    public person(String name, String gender, String age, String hairColor,
+                  String glasses, String job, String beard, String ethnicity,
+                  String pet, String siblings, String phone, String driverslicense,
+                  String car, String city, String vegetarian, String tea,
+                  String smoke, String partner, String meme) {
 
-    
+        this.name = name;
+        this.gender = gender;
+        this.age = age;
+        this.hairColor = hairColor;
+        this.glasses = glasses;
+        this.job = job;
+        this.beard = beard;
+        this.ethnicity = ethnicity;
+        this.pet = pet;
+        this.siblings = siblings;
+        this.phone = phone;
+        this.driverslicense = driverslicense;
+        this.car = car;
+        this.city = city;
+        this.vegetarian = vegetarian;
+        this.tea = tea;
+        this.smoke = smoke;
+        this.partner = partner;
+        this.meme = meme;
+    }
+
 }
