@@ -12,11 +12,11 @@ public class PersonDatabase {
                 "Malte",
                 "männlich",
                 20,
-                "braun",
+                "dunkel",
                 false,
                 "AE",
                 true,
-                "Europa",
+                true,
                 true,
                 true,
                 "Apple",
@@ -35,11 +35,11 @@ public class PersonDatabase {
                 "Timon",
                 "männlich",
                 22,
-                "braun",
+                "dunkel",
                 false,
                 "SI",
                 false,
-                "Europa",
+                true,
                 true,
                 true,
                 "Android",
@@ -58,11 +58,11 @@ public class PersonDatabase {
                 "Ben",
                 "männlich",
                 22,
-                "braun",
+                "dunkel",
                 false,
                 "AE",
                 false,
-                "Europa",
+                true,
                 true,
                 true,
                 "Android",
@@ -81,11 +81,11 @@ public class PersonDatabase {
                 "Gaya",
                 "männlich",
                 23,
-                "braun",
+                "dunkel",
                 true,
                 "SI",
                 false,
-                "Asien",
+                false,
                 false,
                 false,
                 "Apple",
@@ -99,5 +99,28 @@ public class PersonDatabase {
                 false
         );
         personen.add(gaya);
+
+          Person volkan = new Person(
+                "Volkan",       //.
+                "männlich",   //.
+                22,
+                "dunkel",
+                false,
+                "AE",
+                true,
+                true,       //ändern
+                false,
+                true,        //.
+                "Apple",        //.
+                false, //.
+                false,            //.
+                true,            //.
+                false,
+                false,
+                false,          //.
+                true,         //.
+                false            //.
+        );
+        personen.add(volkan);
     }
 }
