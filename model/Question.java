@@ -1,13 +1,15 @@
 package model;
 
+import java.util.function.Predicate;
+
 public class Question {
 
     private String text;
-    private String attribute;
+    private Predicate<Person> condition;
 
-    public Question(String text, String attribute) {
+    public Question(String text, Predicate<Person> condition) {
         this.text = text;
-        this.attribute = attribute;
+        this.condition = condition;
     }
 
     public String getText() {
@@ -15,31 +17,6 @@ public class Question {
     }
 
     public boolean matches(Person person) {
-
-        if (attribute.equals("male")) {
-            return person.getGender().equalsIgnoreCase("männlich");
-        }
-
-        if (attribute.equals("under24")) {
-            return person.getAge() < 24;
-        }
-
-        if (attribute.equals("over24")) {
-            return person.getAge() > 24;
-        }
-
-        if (attribute.equals("glasses")) {
-            return person.hasGlasses();
-        }
-
-        if (attribute.equals("beard")) {
-            return person.hasBeard();
-        }
-
-        if (attribute.equals("pet")) {
-            return person.hasPet();
-        }
-
-        return false;
+        return condition.test(person);
     }
 }

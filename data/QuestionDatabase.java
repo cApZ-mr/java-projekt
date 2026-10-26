@@ -1,6 +1,7 @@
 package data;
 
 import java.util.ArrayList;
+
 import model.Question;
 
 public class QuestionDatabase {
@@ -11,79 +12,87 @@ public class QuestionDatabase {
 
         questions.add(new Question(
                 "Ist deine Person männlich?",
-                "male"
+                person -> person.getGender().equalsIgnoreCase("männlich")
         ));
+
         questions.add(new Question(
                 "Ist deine Person unter 24 Jahre alt?",
-                "under24"
+                person -> person.getAge() < 24
         ));
-        questions.add(new Question(
-                "Ist deine Person über 24 Jahre alt?",
-                "over24"
-        ));
+
         questions.add(new Question(
                 "Trägt deine Person eine Brille?",
-                "glasses"
+                person -> person.hasGlasses()
         ));
+
         questions.add(new Question(
                 "Hat deine Person einen Bart?",
-                "beard"
+                person -> person.hasBeard()
         ));
+
         questions.add(new Question(
                 "Hat deine Person ein Haustier?",
-                "pet"
-        ));    
+                person -> person.hasPet()
+        ));
+
         questions.add(new Question(
                 "Ist deine Person AEler?",
-                "job"
+                person -> person.getJob().equalsIgnoreCase("AE")
         ));
+
         questions.add(new Question(
                 "Ist deine Person aus Europa?",
-                "ethnicity"
+                person -> person.getEthnicity()
         ));
+
         questions.add(new Question(
                 "Hat deine Person Geschwister?",
-                "siblings"
+                person -> person.hasSiblings()
         ));
+
         questions.add(new Question(
                 "Nutzt deine Person Apple?",
-                "phone"
+                person -> person.getPhone().equalsIgnoreCase("Apple")
         ));
-        questions.add(new Question(
-                "Nutzt deine Person Android?",
-                "phone"
-        ));
+
         questions.add(new Question(
                 "Hat deine Person einen Führerschein?",
-                "driverslicense"
+                person -> person.hasDriverslicense()
         ));
+
         questions.add(new Question(
                 "Kommt deine Person mit dem Auto zur Arbeit?",
-                "car"
+                person -> person.hasCar()
         ));
+
         questions.add(new Question(
-                "Kommt deine Person mit dem Öffis zur Arbeit?",
-                "car"
+                "Wohnt deine Person in Düsseldorf?",
+                person -> person.hasCity()
         ));
+
         questions.add(new Question(
-                "Wohnt deine Person in Düsseldorf",
-                "city"
-        ));
-           questions.add(new Question(
                 "Ist deine Person Vegetarier oder Veganer?",
-                "vegetarian"
+                person -> person.isVegetarian()
         ));
+
         questions.add(new Question(
                 "Trinkt deine Person Tee auf der Arbeit?",
-                "tea"
+                person -> person.hasTea()
         ));
+
         questions.add(new Question(
                 "Raucht deine Person?",
-                "smoke"
+                person -> person.doesSmoke()
         ));
+
         questions.add(new Question(
                 "Ist deine Person in einer Beziehung?",
-                "partner"
+                person -> person.hasPartner()
+        ));
+
+        questions.add(new Question(
+                "Ist deine Person als Meme bekannt?",
+                person -> person.isMeme()
         ));
     }
 
