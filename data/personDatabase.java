@@ -3,11 +3,11 @@ package data;
 import java.util.ArrayList;
 import model.Person;
 
-public class PersonDatabase {
+public class personDatabase {
 
     private ArrayList<Person> persons = new ArrayList<>();
 
-    public PersonDatabase() {
+    public personDatabase() {
 
         Person malte = new Person(
                 "Malte",
