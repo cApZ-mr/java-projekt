@@ -1,15 +1,15 @@
 package model;
 
 public class Person {
+
     private String name;
 
     private String gender;          // Geschlecht der Person
-    private int age;                // Alter unter/über 24
+    private int age;                // Alter der Person
     private String hairColor;       // Haarfarbe
     private boolean glasses;        // Trägt Brille Ja/Nein
     private String job;             // Vertiefungsrichtung
     private boolean beard;          // Hat Bart Ja/Nein
-    private boolean ethnicity;      // Kommt aus Asien/Europa Ja/Nein
     private boolean pet;            // Hat Haustier Ja/Nein
     private boolean siblings;       // Hat Geschwister Ja/Nein
     private String phone;           // Apple oder Android
@@ -17,16 +17,16 @@ public class Person {
     private boolean car;            // Kommt mit Auto Ja/Nein
     private boolean city;           // Wohnt in Düsseldorf Ja/Nein
     private boolean vegetarian;     // Ist Vegetarier/Vegan Ja/Nein
-    private boolean tea;            // Trinkt deine Person Tee Ja/Nein (Bei Vodafone)
-    private boolean smoke;          // Nikotin konsum opfer Ja/Nein
+    private boolean tea;            // Trinkt Tee Ja/Nein
+    private boolean smoke;          // Konsumiert Nikotin Ja/Nein
     private boolean partner;        // Hat Freund/Freundin
-    private boolean meme;           // Ist die Person ein Meme (Bekannt für etwas)
 
     public Person(String name, String gender, int age, String hairColor,
-                  boolean glasses, String job, boolean beard, boolean ethnicity,
-                  boolean pet, boolean siblings, String phone, boolean driverslicense,
-                  boolean car, boolean city, boolean vegetarian, boolean tea,
-                  boolean smoke, boolean partner, boolean meme) {
+                  boolean glasses, String job, boolean beard,
+                  boolean pet, boolean siblings, String phone,
+                  boolean driverslicense, boolean car, boolean city,
+                  boolean vegetarian, boolean tea, boolean smoke,
+                  boolean partner) {
 
         this.name = name;
         this.gender = gender;
@@ -35,7 +35,6 @@ public class Person {
         this.glasses = glasses;
         this.job = job;
         this.beard = beard;
-        this.ethnicity = ethnicity;
         this.pet = pet;
         this.siblings = siblings;
         this.phone = phone;
@@ -46,7 +45,6 @@ public class Person {
         this.tea = tea;
         this.smoke = smoke;
         this.partner = partner;
-        this.meme = meme;
     }
 
     public String getName() {
@@ -75,10 +73,6 @@ public class Person {
 
     public boolean hasBeard() {
         return beard;
-    }
-
-    public boolean getEthnicity() {
-        return ethnicity;
     }
 
     public boolean hasPet() {
@@ -120,9 +114,4 @@ public class Person {
     public boolean hasPartner() {
         return partner;
     }
-
-    public boolean isMeme() {
-        return meme;
-    }
-
 }

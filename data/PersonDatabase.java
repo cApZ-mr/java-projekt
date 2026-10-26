@@ -1,5 +1,5 @@
 package data;
-//Hallo test test Test
+
 import java.util.ArrayList;
 import model.Person;
 
@@ -19,7 +19,6 @@ public class PersonDatabase {
                 true,
                 true,
                 true,
-                true,
                 "Apple",
                 false,
                 false,
@@ -27,11 +26,9 @@ public class PersonDatabase {
                 false,
                 false,
                 true,
-                true,
                 true
         );
         persons.add(malte);
-
 
         Person timon = new Person(
                 "Timon",
@@ -43,7 +40,6 @@ public class PersonDatabase {
                 false,
                 true,
                 true,
-                true,
                 "Android",
                 true,
                 true,
@@ -51,11 +47,9 @@ public class PersonDatabase {
                 false,
                 false,
                 false,
-                false,
                 false
         );
         persons.add(timon);
-
 
         Person ben = new Person(
                 "Ben",
@@ -65,7 +59,6 @@ public class PersonDatabase {
                 false,
                 "AE",
                 false,
-                true,
                 false,
                 true,
                 "Android",
@@ -75,11 +68,9 @@ public class PersonDatabase {
                 false,
                 false,
                 false,
-                true,
                 true
         );
         persons.add(ben);
-
 
         Person gaya = new Person(
                 "Gaya",
@@ -91,7 +82,6 @@ public class PersonDatabase {
                 false,
                 false,
                 false,
-                false,
                 "Apple",
                 true,
                 true,
@@ -99,11 +89,9 @@ public class PersonDatabase {
                 false,
                 false,
                 true,
-                false,
                 false
         );
         persons.add(gaya);
-
 
         Person volkan = new Person(
                 "Volkan",
@@ -113,7 +101,6 @@ public class PersonDatabase {
                 false,
                 "AE",
                 true,
-                true,
                 false,
                 true,
                 "Apple",
@@ -123,44 +110,39 @@ public class PersonDatabase {
                 false,
                 false,
                 false,
-                true,
-                false
+                true
         );
         persons.add(volkan);
 
-
-          Person philip = new Person(
-                "Philip",                   //.
-                "männlich",               //.
+        Person philip = new Person(
+                "Philip",
+                "männlich",
                 23,
-                "dunkel",              //.
-                true,                    //.
-                "AE",                        //.
-                false,                     //.
-                false,                 //.
+                "dunkel",
+                true,
+                "AE",
+                false,
                 false,
                 false,
                 "Apple",
-                true,             //.
-                true,                        //.
-                false,                      //.
-                false,                //.
-                true,                        //.
-                true,                      //.
-                true,                    //.
-                false
+                true,
+                true,
+                false,
+                false,
+                true,
+                true,
+                true
         );
         persons.add(philip);
 
-          Person henning = new Person(
-                "Henning",                   //.
-                "männlich",                //.
-                25,                           //.
-                "dunkel",               //.
-                true,                     //.
-                "AE",                         //.
-                true,                       //.
-                true,                   //.
+        Person henning = new Person(
+                "Henning",
+                "männlich",
+                25,
+                "dunkel",
+                true,
+                "AE",
+                true,
                 false,
                 false,
                 "Apple",
@@ -169,90 +151,82 @@ public class PersonDatabase {
                 false,
                 false,
                 false,
-                false,                       //.
                 false,
                 false
         );
         persons.add(henning);
-        
-           Person pouria = new Person(
-                "Pouria",                   //.
-                "männlich",                //.
-                25,                          
-                "dunkel",               //.
-                true,                     //.
-                "AE",                         //.
-                true,                       //.
-                false,                   //.
-                false,
-                false,
-                "Apple",                     //.
+
+        Person pouria = new Person(
+                "Pouria",
+                "männlich",
+                25,
+                "dunkel",
                 true,
-                false,                         //.
-                true,                         //.
+                "AE",
+                true,
                 false,
-                true,                          //.
-                false,                       //.
+                false,
+                "Apple",
+                true,
+                false,
+                true,
+                false,
+                true,
                 false,
                 false
         );
         persons.add(pouria);
-             
-           Person marcel = new Person(
-                "Marcel",                   //.
-                "männlich",                //.
-                25,                           //.
-                "dunkel",               //.
-                false,                     //.
-                "AE",                         //.
-                false,                       //.
-                true,                   
+
+        Person marcel = new Person(
+                "Marcel",
+                "männlich",
+                25,
+                "dunkel",
+                false,
+                "AE",
+                false,
                 false,
                 false,
                 "Apple",
                 true,
                 true,
-                false,                        //.
                 false,
-                true,                          //.
-                false,                       //.
+                false,
+                true,
                 false,
                 false
         );
         persons.add(marcel);
 
-           Person mirabel = new Person(
-                "Mirabel",                   //.
-                "weiblich",                //.
-                25,                          
-                "dunkel",               //.
-                true,                     //.
-                "AE",                         //.
-                false,                       //.
-                false,                   //.
+        Person mirabel = new Person(
+                "Mirabel",
+                "weiblich",
+                25,
+                "dunkel",
+                true,
+                "AE",
+                false,
                 false,
                 false,
                 "Apple",
-                true,               //.
+                true,
                 true,
                 false,
                 false,
                 false,
-                false,                       //.
                 false,
                 false
         );
         persons.add(mirabel);
 
-           Person christian = new Person(
-                "Christian",                   //.
-                "männlich",                //.
-                25,                          
-                "dunkel",               //.
-                false,                     //.
-                "AE",                         //.
-                true,                       //.
-                true,                   //.
+        Person christian = new Person(
+                "Christian",
+                "männlich",
+                25,
+                "dunkel",
+                false,
+                "AE",
+                true,
                 false,
                 false,
                 "Apple",
@@ -260,68 +234,62 @@ public class PersonDatabase {
                 true,
                 false,
                 false,
-                true,                         //.
-                true,                       //.
-                false,
+                true,
+                true,
                 false
         );
         persons.add(christian);
 
-           Person sven = new Person(
-                "Sven",                   //.
-                "männlich",                //.
-                25,                          
-                "hell",               //.
-                true,                     //.
-                "AE",                         //.
-                false,                       //.
-                true,                   //.
+        Person sven = new Person(
+                "Sven",
+                "männlich",
+                25,
+                "hell",
+                true,
+                "AE",
                 false,
                 false,
-                "Apple",
-                true,               //.
-                true,                          //.
-                false,
-                false,
-                true,                          //.
-                false,                       //.
-                false,
-                false
-        );
-        persons.add(sven);     
-
-           Person lina = new Person(
-                "Lina",                   //.
-                "weiblich",                //.
-                23,                           //.
-                "dunkel",               //.
-                false,                     //.
-                "AE",                         //.
-                false,                       //.
-                false,                   //.
-                true,                          //.
                 false,
                 "Apple",
                 true,
-                false,                         //.
-                false,                        //.
+                true,
                 false,
                 false,
-                true,                       //.
-                true,                     //.
+                true,
+                false,
                 false
+        );
+        persons.add(sven);
+
+        Person lina = new Person(
+                "Lina",
+                "weiblich",
+                23,
+                "dunkel",
+                false,
+                "AE",
+                false,
+                true,
+                false,
+                "Apple",
+                true,
+                false,
+                false,
+                false,
+                false,
+                true,
+                true
         );
         persons.add(lina);
 
-           Person saskia = new Person(
-                "Saskia",                   //.
-                "weiblich",                //.
-                25,                          
-                "dunkel",               //.
-                true,                     //.
-                "SI",                         //.
-                false,                       //.
-                true,                   //.
+        Person saskia = new Person(
+                "Saskia",
+                "weiblich",
+                25,
+                "dunkel",
+                true,
+                "SI",
+                false,
                 false,
                 false,
                 "Apple",
@@ -330,44 +298,40 @@ public class PersonDatabase {
                 false,
                 false,
                 false,
-                false,                      
                 false,
                 false
         );
         persons.add(saskia);
 
-           Person nyambayar = new Person(
-                "Nyambayar",                   //.
-                "männlich",                //.
-                25,                          
-                "dunkel",               //.
-                true,                     //.
-                "AE",                         //.
-                false,                       //.
-                false,                   //.
+        Person nyambayar = new Person(
+                "Nyambayar",
+                "männlich",
+                25,
+                "dunkel",
+                true,
+                "AE",
                 false,
                 false,
-                "Apple",                     //.
+                false,
+                "Apple",
                 true,
                 true,
                 false,
                 false,
-                true,                           
-                false,                      
+                true,
                 false,
                 false
         );
         persons.add(nyambayar);
 
-           Person nils = new Person(
-                "Nils",                   //.
-                "männlich",                //.
-                25,                          
-                "hell",               //.
-                true,                     //.
-                "AE",                         //.
-                true,                       //.
-                true,                   //.
+        Person nils = new Person(
+                "Nils",
+                "männlich",
+                25,
+                "hell",
+                true,
+                "AE",
+                true,
                 false,
                 false,
                 "Apple",
@@ -376,21 +340,19 @@ public class PersonDatabase {
                 false,
                 false,
                 false,
-                false,                       //.
                 false,
                 false
         );
         persons.add(nils);
 
-           Person emily = new Person(
-                "Emily",                   //.
-                "weiblich",                //.
-                27,                           //.
-                "hell",               //.
-                true,                     //.
-                "AE",                         //.
-                false,                       //.
-                true,                   //.
+        Person emily = new Person(
+                "Emily",
+                "weiblich",
+                27,
+                "hell",
+                true,
+                "AE",
+                false,
                 false,
                 false,
                 "Apple",
@@ -399,21 +361,19 @@ public class PersonDatabase {
                 false,
                 false,
                 false,
-                false,                      
                 false,
                 false
         );
         persons.add(emily);
 
-           Person moussa = new Person(
-                "Moussa",                   //.
-                "männlich",                //.
-                25,                           
-                "dunkel",               //.
-                true,                     //.
-                "AE",                         //.
-                true,                       //.
-                false,                   //.
+        Person moussa = new Person(
+                "Moussa",
+                "männlich",
+                25,
+                "dunkel",
+                true,
+                "AE",
+                true,
                 false,
                 false,
                 "Apple",
@@ -422,41 +382,34 @@ public class PersonDatabase {
                 false,
                 false,
                 false,
-                false,                       
                 false,
                 false
         );
         persons.add(moussa);
-        
+
         Person zinat = new Person(
-                "Zinat",                //.
-                "weiblich",           //.
-                19,                      //.
-                "dunkel",          //.
-                true,                //.
-                "DP",                    //.
-                false,                 //.
-                false,             //.
+                "Zinat",
+                "weiblich",
+                19,
+                "dunkel",
+                true,
+                "DP",
                 false,
-                true,               //.
-                "Apple",               //.
-                false,        //.
-                false,                   //.
-                true,                   //.
                 false,
-                true,                    //.
-                true,                  //.
+                true,
+                "Apple",
                 false,
+                false,
+                true,
+                false,
+                true,
+                true,
                 false
         );
         persons.add(zinat);
     }
 
-
-
-
     public ArrayList<Person> getPersons() {
         return persons;
     }
-
-}    
+}

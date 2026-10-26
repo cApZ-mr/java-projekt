@@ -41,11 +41,6 @@ public class QuestionDatabase {
         ));
 
         questions.add(new Question(
-                "Ist deine Person aus Europa?",
-                person -> person.getEthnicity()
-        ));
-
-        questions.add(new Question(
                 "Hat deine Person Geschwister?",
                 person -> person.hasSiblings()
         ));
@@ -90,10 +85,6 @@ public class QuestionDatabase {
                 person -> person.hasPartner()
         ));
 
-        questions.add(new Question(
-                "Ist deine Person als Meme bekannt?",
-                person -> person.isMeme()
-        ));
     }
 
     public ArrayList<Question> getQuestions() {
