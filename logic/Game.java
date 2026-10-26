@@ -30,7 +30,7 @@ public class Game {
 
             Question bestQuestion = findBestQuestion();
 
-            // Keine Frage kann die Personen weiter aufteilen
+            // Keine Frage kann die Personen weiter sinnvoll aufteilen
             if (bestQuestion == null) {
                 break;
             }
@@ -39,14 +39,30 @@ public class Game {
             System.out.println(bestQuestion.getText());
             System.out.println("1 = Ja");
             System.out.println("2 = Nein");
+            System.out.println("3 = Weiß nicht");
 
             int input = readAnswer(scanner);
 
-            boolean userAnswer = input == 1;
+            /*
+             * Bei 1 oder 2 werden die Personen gefiltert.
+             * Bei 3 bleiben alle Personen erhalten.
+             */
+            if (input == 1 || input == 2) {
 
-            filterPersons(bestQuestion, userAnswer);
+                boolean userAnswer = input == 1;
 
-            // Verhindert, dass dieselbe Frage erneut gestellt wird
+                filterPersons(bestQuestion, userAnswer);
+
+            } else {
+
+                System.out.println();
+                System.out.println("Die Frage wird übersprungen.");
+            }
+
+            /*
+             * Die Frage wird immer entfernt.
+             * Dadurch wird eine übersprungene Frage nicht erneut gestellt.
+             */
             questions.remove(bestQuestion);
 
             System.out.println();
@@ -80,7 +96,7 @@ public class Game {
             int noCount = persons.size() - yesCount;
 
             /*
-             * Wenn alle Personen dieselbe Antwort haben,
+             * Wenn alle Personen dieselbe Antwort hätten,
              * kann die Frage niemanden herausfiltern.
              */
             if (yesCount == 0 || noCount == 0) {
@@ -112,18 +128,22 @@ public class Game {
 
                 int input = scanner.nextInt();
 
-                if (input == 1 || input == 2) {
+                if (input >= 1 && input <= 3) {
                     return input;
                 }
+
             } else {
                 scanner.next();
             }
 
-            System.out.println("Bitte nur 1 oder 2 eingeben.");
+            System.out.println("Bitte nur 1, 2 oder 3 eingeben.");
         }
     }
 
-    private void filterPersons(Question question, boolean userAnswer) {
+    private void filterPersons(
+            Question question,
+            boolean userAnswer
+    ) {
 
         persons.removeIf(person ->
                 question.matches(person) != userAnswer
@@ -137,7 +157,8 @@ public class Game {
         if (persons.size() == 1) {
 
             System.out.println(
-                    "Deine Person ist: " + persons.get(0).getName()
+                    "Deine Person ist: "
+                    + persons.get(0).getName()
             );
 
         } else if (persons.isEmpty()) {
