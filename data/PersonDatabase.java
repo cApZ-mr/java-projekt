@@ -1,6 +1,8 @@
 package data;
 
 import java.util.ArrayList;
+import java.time.LocalDate;
+
 import model.Person;
 
 public class PersonDatabase {
@@ -12,7 +14,7 @@ public class PersonDatabase {
         Person malte = new Person(
                 "Malte",
                 "männlich",
-                20,
+                LocalDate.of(2006, 5, 15),
                 "dunkel",
                 false,
                 "AE",
@@ -33,7 +35,7 @@ public class PersonDatabase {
         Person timon = new Person(
                 "Timon",
                 "männlich",
-                22,
+                LocalDate.of(2004, 4, 12),
                 "dunkel",
                 false,
                 "SI",
@@ -54,7 +56,7 @@ public class PersonDatabase {
         Person ben = new Person(
                 "Ben",
                 "männlich",
-                22,
+                LocalDate.of(2004, 3, 20),
                 "dunkel",
                 false,
                 "AE",
@@ -75,7 +77,7 @@ public class PersonDatabase {
         Person gaya = new Person(
                 "Gaya",
                 "männlich",
-                23,
+                LocalDate.of(2003, 6, 10),
                 "dunkel",
                 true,
                 "SI",
@@ -96,7 +98,7 @@ public class PersonDatabase {
         Person volkan = new Person(
                 "Volkan",
                 "männlich",
-                22,
+                LocalDate.of(2004, 2, 18),
                 "dunkel",
                 false,
                 "AE",
@@ -117,7 +119,7 @@ public class PersonDatabase {
         Person philip = new Person(
                 "Philip",
                 "männlich",
-                23,
+                LocalDate.of(2003, 7, 22),
                 "dunkel",
                 true,
                 "AE",
@@ -138,7 +140,7 @@ public class PersonDatabase {
         Person henning = new Person(
                 "Henning",
                 "männlich",
-                25,
+                LocalDate.of(2001, 5, 11),
                 "dunkel",
                 true,
                 "AE",
@@ -159,7 +161,7 @@ public class PersonDatabase {
         Person pouria = new Person(
                 "Pouria",
                 "männlich",
-                25,
+                LocalDate.of(2001, 3, 14),
                 "dunkel",
                 true,
                 "AE",
@@ -180,7 +182,7 @@ public class PersonDatabase {
         Person marcel = new Person(
                 "Marcel",
                 "männlich",
-                25,
+                LocalDate.of(2001, 8, 7),
                 "dunkel",
                 false,
                 "AE",
@@ -201,7 +203,7 @@ public class PersonDatabase {
         Person mirabel = new Person(
                 "Mirabel",
                 "weiblich",
-                25,
+                LocalDate.of(2001, 1, 25),
                 "dunkel",
                 true,
                 "AE",
@@ -222,7 +224,7 @@ public class PersonDatabase {
         Person christian = new Person(
                 "Christian",
                 "männlich",
-                25,
+                LocalDate.of(2001, 6, 17),
                 "dunkel",
                 false,
                 "AE",
@@ -243,7 +245,7 @@ public class PersonDatabase {
         Person sven = new Person(
                 "Sven",
                 "männlich",
-                25,
+                LocalDate.of(2001, 9, 3),
                 "hell",
                 true,
                 "AE",
@@ -264,7 +266,7 @@ public class PersonDatabase {
         Person lina = new Person(
                 "Lina",
                 "weiblich",
-                23,
+                LocalDate.of(2003, 4, 19),
                 "dunkel",
                 false,
                 "AE",
@@ -285,7 +287,7 @@ public class PersonDatabase {
         Person saskia = new Person(
                 "Saskia",
                 "weiblich",
-                25,
+                LocalDate.of(2001, 2, 13),
                 "dunkel",
                 true,
                 "SI",
@@ -306,7 +308,7 @@ public class PersonDatabase {
         Person nyambayar = new Person(
                 "Nyambayar",
                 "männlich",
-                25,
+                LocalDate.of(2001, 7, 21),
                 "dunkel",
                 true,
                 "AE",
@@ -327,7 +329,7 @@ public class PersonDatabase {
         Person nils = new Person(
                 "Nils",
                 "männlich",
-                25,
+                LocalDate.of(2001, 10, 5),
                 "hell",
                 true,
                 "AE",
@@ -348,7 +350,7 @@ public class PersonDatabase {
         Person emily = new Person(
                 "Emily",
                 "weiblich",
-                27,
+                LocalDate.of(1999, 5, 16),
                 "hell",
                 true,
                 "AE",
@@ -369,7 +371,7 @@ public class PersonDatabase {
         Person moussa = new Person(
                 "Moussa",
                 "männlich",
-                25,
+                LocalDate.of(2001, 4, 28),
                 "dunkel",
                 true,
                 "AE",
@@ -390,7 +392,7 @@ public class PersonDatabase {
         Person zinat = new Person(
                 "Zinat",
                 "weiblich",
-                19,
+                LocalDate.of(2007, 6, 8),
                 "dunkel",
                 true,
                 "DP",

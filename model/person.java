@@ -1,11 +1,14 @@
 package model;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 public class Person {
 
     private String name;
 
     private String gender;          // Geschlecht der Person
-    private int age;                // Alter der Person
+    private LocalDate birthDate;    // Geburtsdatum der Person
     private String hairColor;       // Haarfarbe
     private boolean glasses;        // Trägt Brille Ja/Nein
     private String job;             // Vertiefungsrichtung
@@ -21,16 +24,16 @@ public class Person {
     private boolean smoke;          // Konsumiert Nikotin Ja/Nein
     private boolean partner;        // Hat Freund/Freundin
 
-    public Person(String name, String gender, int age, String hairColor,
-                  boolean glasses, String job, boolean beard,
-                  boolean pet, boolean siblings, String phone,
-                  boolean driverslicense, boolean car, boolean city,
-                  boolean vegetarian, boolean tea, boolean smoke,
-                  boolean partner) {
+    public Person(String name, String gender, LocalDate birthDate,
+                  String hairColor, boolean glasses, String job,
+                  boolean beard, boolean pet, boolean siblings,
+                  String phone, boolean driverslicense, boolean car,
+                  boolean city, boolean vegetarian, boolean tea,
+                  boolean smoke, boolean partner) {
 
         this.name = name;
         this.gender = gender;
-        this.age = age;
+        this.birthDate = birthDate;
         this.hairColor = hairColor;
         this.glasses = glasses;
         this.job = job;
@@ -55,8 +58,12 @@ public class Person {
         return gender;
     }
 
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
     public int getAge() {
-        return age;
+        return Period.between(birthDate, LocalDate.now()).getYears();
     }
 
     public String getHairColor() {
