@@ -66,7 +66,7 @@ public class PersonDatabase {
                 "AE",
                 false,
                 true,
-                true,
+                false,
                 true,
                 "Android",
                 true,
@@ -128,27 +128,6 @@ public class PersonDatabase {
         );
         persons.add(volkan);
 
-                  Person zinat = new Person(
-                "Zinat",                //.
-                "weiblich",           //.
-                19,                      //.
-                "dunkel",          //.
-                true,                //.
-                "DP",                    //.
-                false,                 //.
-                false,             //.
-                false,
-                true,               //.
-                "Apple",               //.
-                false,        //.
-                false,                   //.
-                true,                   //.
-                false,
-                true,                    //.
-                true,                  //.
-                false,
-        );
-        persons.add(zinat);
 
           Person philip = new Person(
                 "Philip",                   //.
@@ -286,7 +265,7 @@ public class PersonDatabase {
                 false,
                 false
         );
-        persons.add(Christian);
+        persons.add(christian);
 
            Person sven = new Person(
                 "Sven",                   //.
@@ -448,16 +427,36 @@ public class PersonDatabase {
                 false
         );
         persons.add(moussa);
+        
+        Person zinat = new Person(
+                "Zinat",                //.
+                "weiblich",           //.
+                19,                      //.
+                "dunkel",          //.
+                true,                //.
+                "DP",                    //.
+                false,                 //.
+                false,             //.
+                false,
+                true,               //.
+                "Apple",               //.
+                false,        //.
+                false,                   //.
+                true,                   //.
+                false,
+                true,                    //.
+                true,                  //.
+                false,
+                false
+        );
+        persons.add(zinat);
     }
-}
 
-    }
-}
 
-    }
 
 
     public ArrayList<Person> getPersons() {
         return persons;
     }
-}
+
+}    
