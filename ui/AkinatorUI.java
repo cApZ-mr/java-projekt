@@ -1,4 +1,4 @@
-package logic;
+package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -49,11 +49,11 @@ public class AkinatorUI extends JFrame {
      * Die Bilder müssen im Ordner src/images liegen.
      */
     private final String[] poseImages = {
-            "data/images/pose1.png",
-            "data/images/pose2.png",
-            "data/images/pose3.png",
-            "data/images/pose4.png",
-            "data/images/pose5.png"
+            "images/pose1.png",
+            "images/pose2.png",
+            "images/pose3.png",
+            "images/pose4.png",
+            "images/pose5.png"
     };
 
     private int currentPoseIndex = 0;
