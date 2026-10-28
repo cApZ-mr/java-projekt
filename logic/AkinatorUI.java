@@ -5,9 +5,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,17 +38,31 @@ public class AkinatorUI extends JFrame {
     private JLabel questionLabel;
     private JLabel remainingLabel;
     private JLabel resultLabel;
+    private JLabel geniusImageLabel;
 
     private JButton yesButton;
     private JButton noButton;
     private JButton unsureButton;
     private JButton restartButton;
 
+    /*
+     * Die Bilder müssen im Ordner src/images liegen.
+     */
+    private final String[] poseImages = {
+            "data/images/pose1.png",
+            "data/images/pose2.png",
+            "data/images/pose3.png",
+            "data/images/pose4.png",
+            "data/images/pose5.png"
+    };
+
+    private int currentPoseIndex = 0;
+
     public AkinatorUI() {
 
         setTitle("Unser Akinator");
-        setSize(700, 450);
-        setMinimumSize(new Dimension(600, 400));
+        setSize(950, 600);
+        setMinimumSize(new Dimension(800, 500));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -51,11 +72,17 @@ public class AkinatorUI extends JFrame {
 
     private void createUI() {
 
-        // Hintergrund
+        // Hauptbereich
         JPanel mainPanel = new JPanel(new BorderLayout(20, 20));
         mainPanel.setBackground(new Color(32, 28, 55));
+
         mainPanel.setBorder(
-                BorderFactory.createEmptyBorder(30, 40, 30, 40)
+                BorderFactory.createEmptyBorder(
+                        25,
+                        35,
+                        25,
+                        35
+                )
         );
 
         // Überschrift
@@ -74,9 +101,9 @@ public class AkinatorUI extends JFrame {
 
         mainPanel.add(titleLabel, BorderLayout.NORTH);
 
-        // Mitte
+        // Kompletter mittlerer Bereich
         JPanel centerPanel = new JPanel(
-                new BorderLayout(15, 15)
+                new BorderLayout(25, 15)
         );
 
         centerPanel.setBackground(new Color(48, 42, 78));
@@ -88,13 +115,75 @@ public class AkinatorUI extends JFrame {
                                 2
                         ),
                         BorderFactory.createEmptyBorder(
-                                30,
-                                30,
-                                30,
-                                30
+                                25,
+                                25,
+                                25,
+                                25
                         )
                 )
         );
+
+        /*
+         * Linker Bereich für das Genie-Bild.
+         */
+        JPanel imagePanel = new JPanel(
+                new BorderLayout()
+        );
+
+        imagePanel.setBackground(
+                new Color(40, 35, 68)
+        );
+
+        imagePanel.setPreferredSize(
+                new Dimension(300, 380)
+        );
+
+        imagePanel.setBorder(
+                BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(
+                                new Color(150, 125, 255),
+                                2
+                        ),
+                        BorderFactory.createEmptyBorder(
+                                10,
+                                10,
+                                10,
+                                10
+                        )
+                )
+        );
+
+        geniusImageLabel = new JLabel(
+                "Bild wird geladen...",
+                SwingConstants.CENTER
+        );
+
+        geniusImageLabel.setForeground(Color.WHITE);
+
+        geniusImageLabel.setFont(new Font(
+                "Arial",
+                Font.BOLD,
+                15
+        ));
+
+        imagePanel.add(
+                geniusImageLabel,
+                BorderLayout.CENTER
+        );
+
+        centerPanel.add(
+                imagePanel,
+                BorderLayout.WEST
+        );
+
+        /*
+         * Rechter Bereich für Frage und Ergebnis.
+         */
+        JPanel questionPanel = new JPanel(
+                new BorderLayout(15, 15)
+        );
+
+        questionPanel.setOpaque(false);
 
         remainingLabel = new JLabel(
                 "Verbleibende Personen: 0",
@@ -111,7 +200,7 @@ public class AkinatorUI extends JFrame {
                 new Color(200, 195, 225)
         );
 
-        centerPanel.add(
+        questionPanel.add(
                 remainingLabel,
                 BorderLayout.NORTH
         );
@@ -129,7 +218,7 @@ public class AkinatorUI extends JFrame {
 
         questionLabel.setForeground(Color.WHITE);
 
-        centerPanel.add(
+        questionPanel.add(
                 questionLabel,
                 BorderLayout.CENTER
         );
@@ -149,19 +238,29 @@ public class AkinatorUI extends JFrame {
                 new Color(180, 160, 255)
         );
 
-        centerPanel.add(
+        questionPanel.add(
                 resultLabel,
                 BorderLayout.SOUTH
         );
 
-        mainPanel.add(centerPanel, BorderLayout.CENTER);
+        centerPanel.add(
+                questionPanel,
+                BorderLayout.CENTER
+        );
 
-        // Buttons
+        mainPanel.add(
+                centerPanel,
+                BorderLayout.CENTER
+        );
+
+        // Buttonbereich
         JPanel buttonPanel = new JPanel(
                 new GridLayout(1, 4, 10, 0)
         );
 
-        buttonPanel.setBackground(new Color(32, 28, 55));
+        buttonPanel.setBackground(
+                new Color(32, 28, 55)
+        );
 
         yesButton = createButton(
                 "Ja",
@@ -188,11 +287,14 @@ public class AkinatorUI extends JFrame {
         buttonPanel.add(unsureButton);
         buttonPanel.add(restartButton);
 
-        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+        mainPanel.add(
+                buttonPanel,
+                BorderLayout.SOUTH
+        );
 
         add(mainPanel);
 
-        // Aktionen
+        // Buttonaktionen
         yesButton.addActionListener(event ->
                 answerQuestion(true)
         );
@@ -256,6 +358,7 @@ public class AkinatorUI extends JFrame {
         );
 
         currentQuestion = null;
+        currentPoseIndex = 0;
 
         resultLabel.setText("");
 
@@ -269,19 +372,16 @@ public class AkinatorUI extends JFrame {
         updateRemainingLabel();
 
         if (persons.isEmpty()) {
-
             showNoResult();
             return;
         }
 
         if (persons.size() == 1) {
-
             showPersonResult();
             return;
         }
 
         if (questions.isEmpty()) {
-
             showMultipleResults();
             return;
         }
@@ -289,15 +389,166 @@ public class AkinatorUI extends JFrame {
         currentQuestion = findBestQuestion();
 
         if (currentQuestion == null) {
-
             showMultipleResults();
             return;
         }
 
         questionLabel.setText(
-                "<html><div style='text-align: center;'>"
-                + currentQuestion.getText()
-                + "</div></html>"
+                "<html>"
+                        + "<div style='text-align: center; width: 350px;'>"
+                        + currentQuestion.getText()
+                        + "</div>"
+                        + "</html>"
+        );
+
+        /*
+         * Bei jeder neuen Frage wird die nächste Pose angezeigt.
+         */
+        showNextPose();
+    }
+
+    private void showNextPose() {
+
+        if (poseImages.length == 0) {
+            geniusImageLabel.setText(
+                    "Keine Bilder eingetragen."
+            );
+            return;
+        }
+
+        String imagePath =
+                poseImages[currentPoseIndex];
+
+        setGeniusImage(imagePath);
+
+        currentPoseIndex++;
+
+        /*
+         * Nach dem letzten Bild wieder beim ersten beginnen.
+         */
+        if (currentPoseIndex >= poseImages.length) {
+            currentPoseIndex = 0;
+        }
+    }
+
+    private void setGeniusImage(String imagePath) {
+
+        BufferedImage originalImage = loadImage(imagePath);
+
+        if (originalImage == null) {
+            geniusImageLabel.setIcon(null);
+
+            geniusImageLabel.setText(
+                    "<html><div style='text-align: center;'>"
+                            + "Bild nicht gefunden:<br>"
+                            + imagePath
+                            + "</div></html>"
+            );
+
+            return;
+        }
+
+        int maximumWidth = 275;
+        int maximumHeight = 350;
+
+        Image scaledImage = scaleImage(
+                originalImage,
+                maximumWidth,
+                maximumHeight
+        );
+
+        geniusImageLabel.setText("");
+        geniusImageLabel.setIcon(
+                new ImageIcon(scaledImage)
+        );
+    }
+
+    private BufferedImage loadImage(String imagePath) {
+
+        /*
+         * Zuerst wird versucht, das Bild über den Classpath
+         * zu laden. Das funktioniert bei normalen Java-Projekten
+         * und später auch bei einer JAR-Datei.
+         */
+        URL imageURL = getClass().getResource(imagePath);
+
+        if (imageURL != null) {
+            try {
+                return ImageIO.read(imageURL);
+            } catch (IOException exception) {
+                System.out.println(
+                        "Fehler beim Laden über den Classpath: "
+                                + imagePath
+                );
+            }
+        }
+
+        /*
+         * Falls VS Code den Ressourcenordner nicht automatisch
+         * erkennt, wird das Bild direkt aus src/images geladen.
+         */
+        String filePath = "src" + imagePath;
+
+        File imageFile = new File(filePath);
+
+        if (imageFile.exists()) {
+            try {
+                return ImageIO.read(imageFile);
+            } catch (IOException exception) {
+                System.out.println(
+                        "Fehler beim Laden der Datei: "
+                                + filePath
+                );
+            }
+        }
+
+        System.out.println(
+                "Bild wurde nicht gefunden: "
+                        + imagePath
+        );
+
+        return null;
+    }
+
+    private Image scaleImage(
+            BufferedImage originalImage,
+            int maximumWidth,
+            int maximumHeight
+    ) {
+
+        int originalWidth =
+                originalImage.getWidth();
+
+        int originalHeight =
+                originalImage.getHeight();
+
+        double widthFactor =
+                (double) maximumWidth / originalWidth;
+
+        double heightFactor =
+                (double) maximumHeight / originalHeight;
+
+        /*
+         * Der kleinere Faktor wird verwendet,
+         * damit das Bild nicht verzerrt wird.
+         */
+        double scaleFactor = Math.min(
+                widthFactor,
+                heightFactor
+        );
+
+        int newWidth = (int) (
+                originalWidth * scaleFactor
+        );
+
+        int newHeight = (int) (
+                originalHeight * scaleFactor
+        );
+
+        return originalImage.getScaledInstance(
+                newWidth,
+                newHeight,
+                Image.SCALE_SMOOTH
         );
     }
 
@@ -317,7 +568,8 @@ public class AkinatorUI extends JFrame {
                 }
             }
 
-            int noCount = persons.size() - yesCount;
+            int noCount =
+                    persons.size() - yesCount;
 
             /*
              * Wenn alle Personen dieselbe Antwort haben,
@@ -380,7 +632,9 @@ public class AkinatorUI extends JFrame {
                 "Ich glaube, deine Person ist:"
         );
 
-        resultLabel.setText(result.getName());
+        resultLabel.setText(
+                result.getName()
+        );
 
         setAnswerButtonsEnabled(false);
     }
@@ -405,7 +659,8 @@ public class AkinatorUI extends JFrame {
         );
 
         StringBuilder names = new StringBuilder(
-                "<html><div style='text-align: center;'>"
+                "<html>"
+                        + "<div style='text-align: center;'>"
         );
 
         names.append("Mögliche Personen:<br>");
@@ -417,7 +672,9 @@ public class AkinatorUI extends JFrame {
 
         names.append("</div></html>");
 
-        resultLabel.setText(names.toString());
+        resultLabel.setText(
+                names.toString()
+        );
 
         setAnswerButtonsEnabled(false);
     }
@@ -426,7 +683,7 @@ public class AkinatorUI extends JFrame {
 
         remainingLabel.setText(
                 "Verbleibende Personen: "
-                + persons.size()
+                        + persons.size()
         );
     }
 
