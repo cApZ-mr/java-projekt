@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
@@ -48,6 +49,8 @@ public class AkinatorUI extends JFrame {
     private JButton unsureButton;
     private JButton restartButton;
 
+    private JToggleButton infoToggleButton;
+
     /*
      * Die Bilder müssen im Ordner src/images liegen.
      */
@@ -69,8 +72,8 @@ public class AkinatorUI extends JFrame {
     public AkinatorUI() {
 
         setTitle("Unser Akinator");
-        setSize(950, 600);
-        setMinimumSize(new Dimension(800, 500));
+        setSize(1050, 600);
+        setMinimumSize(new Dimension(900, 500));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -279,7 +282,7 @@ public class AkinatorUI extends JFrame {
 
         // Buttonbereich
         JPanel buttonPanel = new JPanel(
-                new GridLayout(1, 4, 10, 0)
+                new GridLayout(1, 5, 10, 0)
         );
 
         buttonPanel.setBackground(
@@ -306,10 +309,40 @@ public class AkinatorUI extends JFrame {
                 new Color(110, 80, 210)
         );
 
+        infoToggleButton = new JToggleButton(
+                "Info: An",
+                true
+        );
+
+        infoToggleButton.setFont(
+                new Font(
+                        "Arial",
+                        Font.BOLD,
+                        16
+                )
+        );
+
+        infoToggleButton.setBackground(
+                new Color(70, 120, 180)
+        );
+
+        infoToggleButton.setForeground(Color.WHITE);
+        infoToggleButton.setFocusPainted(false);
+
+        infoToggleButton.setBorder(
+                BorderFactory.createEmptyBorder(
+                        12,
+                        10,
+                        12,
+                        10
+                )
+        );
+
         buttonPanel.add(yesButton);
         buttonPanel.add(noButton);
         buttonPanel.add(unsureButton);
         buttonPanel.add(restartButton);
+        buttonPanel.add(infoToggleButton);
 
         mainPanel.add(
                 buttonPanel,
@@ -333,6 +366,10 @@ public class AkinatorUI extends JFrame {
 
         restartButton.addActionListener(event ->
                 startNewGame()
+        );
+
+        infoToggleButton.addActionListener(event ->
+                toggleRemainingInformation()
         );
     }
 
@@ -367,6 +404,37 @@ public class AkinatorUI extends JFrame {
         return button;
     }
 
+    private void toggleRemainingInformation() {
+
+        boolean showInformation =
+                infoToggleButton.isSelected();
+
+        remainingLabel.setVisible(
+                showInformation
+        );
+
+        if (showInformation) {
+
+            infoToggleButton.setText(
+                    "Info: An"
+            );
+
+            infoToggleButton.setBackground(
+                    new Color(70, 120, 180)
+            );
+
+        } else {
+
+            infoToggleButton.setText(
+                    "Info: Aus"
+            );
+
+            infoToggleButton.setBackground(
+                    new Color(90, 90, 120)
+            );
+        }
+    }
+
     private void startNewGame() {
 
         PersonDatabase personDatabase =
@@ -398,6 +466,14 @@ public class AkinatorUI extends JFrame {
         resultLabel.setText("");
 
         setAnswerButtonsEnabled(true);
+
+        /*
+         * Die ausgewählte Info-Einstellung bleibt
+         * auch nach einem Neustart erhalten.
+         */
+        remainingLabel.setVisible(
+                infoToggleButton.isSelected()
+        );
 
         showNextQuestion();
     }
@@ -461,8 +537,8 @@ public class AkinatorUI extends JFrame {
         }
 
         /*
-         * Nach jeder Antwort wird anhand der aktuell
-         * verbliebenen Personen die beste Frage gesucht.
+         * Nach jeder Antwort wird die aktuell
+         * effektivste Frage gesucht.
          */
         currentQuestion = findBestQuestion();
 
@@ -486,7 +562,7 @@ public class AkinatorUI extends JFrame {
 
         /*
          * Hier werden alle Fragen gespeichert,
-         * die aktuell gleich gut sind.
+         * die aktuell gleich effektiv sind.
          */
         ArrayList<Question> bestQuestions =
                 new ArrayList<>();
@@ -516,7 +592,6 @@ public class AkinatorUI extends JFrame {
             }
 
             /*
-             * Worst Case bedeutet:
              * Wie viele Personen bleiben bei der
              * ungünstigeren Antwort maximal übrig?
              */
@@ -525,11 +600,6 @@ public class AkinatorUI extends JFrame {
                     noCount
             );
 
-            /*
-             * Eine bessere Frage wurde gefunden.
-             * Die bisher gespeicherten Fragen werden
-             * durch diese Frage ersetzt.
-             */
             if (worstCase < bestWorstCase) {
 
                 bestWorstCase = worstCase;
@@ -537,10 +607,6 @@ public class AkinatorUI extends JFrame {
                 bestQuestions.clear();
                 bestQuestions.add(question);
 
-            /*
-             * Die Frage ist genauso effektiv wie
-             * die bisher besten Fragen.
-             */
             } else if (
                     worstCase == bestWorstCase
             ) {
@@ -554,8 +620,8 @@ public class AkinatorUI extends JFrame {
         }
 
         /*
-         * Aus allen gleich guten Fragen wird
-         * zufällig eine ausgewählt.
+         * Zufällige Auswahl aus allen
+         * gleich effektiven Fragen.
          */
         int randomIndex = (int) (
                 Math.random()
