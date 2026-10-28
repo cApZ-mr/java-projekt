@@ -11,6 +11,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -140,9 +143,7 @@ public class AkinatorUI extends JFrame {
                 )
         );
 
-        /*
-         * Linker Bereich für das Bild.
-         */
+        // Bildbereich
         JPanel imagePanel = new JPanel(
                 new BorderLayout()
         );
@@ -195,9 +196,7 @@ public class AkinatorUI extends JFrame {
                 BorderLayout.WEST
         );
 
-        /*
-         * Rechter Bereich für Frage und Ergebnis.
-         */
+        // Fragebereich
         JPanel questionPanel = new JPanel(
                 new BorderLayout(15, 15)
         );
@@ -384,14 +383,62 @@ public class AkinatorUI extends JFrame {
                 questionDatabase.getQuestions()
         );
 
+        /*
+         * Automatische Altersfragen hinzufügen.
+         */
+        addAgeQuestions();
+
         currentQuestion = null;
         currentPoseIndex = -1;
+
+        questionLabel.setText(
+                "Frage wird geladen..."
+        );
 
         resultLabel.setText("");
 
         setAnswerButtonsEnabled(true);
 
         showNextQuestion();
+    }
+
+    private void addAgeQuestions() {
+
+        /*
+         * HashSet verhindert doppelte Alterswerte.
+         */
+        Set<Integer> uniqueAges = new HashSet<>();
+
+        for (Person person : persons) {
+            uniqueAges.add(person.getAge());
+        }
+
+        ArrayList<Integer> ages =
+                new ArrayList<>(uniqueAges);
+
+        Collections.sort(ages);
+
+        /*
+         * Aus den vorhandenen Alterswerten werden
+         * automatisch mögliche Altersfragen erstellt.
+         *
+         * Der höchste Wert wird nicht verwendet,
+         * weil dann alle Personen mit Ja antworten würden.
+         */
+        for (int index = 0;
+             index < ages.size() - 1;
+             index++) {
+
+            int ageLimit = ages.get(index);
+
+            questions.add(new Question(
+                    "Ist deine Person "
+                            + ageLimit
+                            + " Jahre alt oder jünger?",
+                    person ->
+                            person.getAge() <= ageLimit
+            ));
+        }
     }
 
     private void showNextQuestion() {
@@ -435,6 +482,89 @@ public class AkinatorUI extends JFrame {
         showNextPose();
     }
 
+    private Question findBestQuestion() {
+
+        /*
+         * Hier werden alle Fragen gespeichert,
+         * die aktuell gleich gut sind.
+         */
+        ArrayList<Question> bestQuestions =
+                new ArrayList<>();
+
+        int bestWorstCase = Integer.MAX_VALUE;
+
+        for (Question question : questions) {
+
+            int yesCount = 0;
+            int noCount = 0;
+
+            for (Person person : persons) {
+
+                if (question.matches(person)) {
+                    yesCount++;
+                } else {
+                    noCount++;
+                }
+            }
+
+            /*
+             * Wenn alle verbliebenen Personen dieselbe
+             * Antwort hätten, ist die Frage nutzlos.
+             */
+            if (yesCount == 0 || noCount == 0) {
+                continue;
+            }
+
+            /*
+             * Worst Case bedeutet:
+             * Wie viele Personen bleiben bei der
+             * ungünstigeren Antwort maximal übrig?
+             */
+            int worstCase = Math.max(
+                    yesCount,
+                    noCount
+            );
+
+            /*
+             * Eine bessere Frage wurde gefunden.
+             * Die bisher gespeicherten Fragen werden
+             * durch diese Frage ersetzt.
+             */
+            if (worstCase < bestWorstCase) {
+
+                bestWorstCase = worstCase;
+
+                bestQuestions.clear();
+                bestQuestions.add(question);
+
+            /*
+             * Die Frage ist genauso effektiv wie
+             * die bisher besten Fragen.
+             */
+            } else if (
+                    worstCase == bestWorstCase
+            ) {
+
+                bestQuestions.add(question);
+            }
+        }
+
+        if (bestQuestions.isEmpty()) {
+            return null;
+        }
+
+        /*
+         * Aus allen gleich guten Fragen wird
+         * zufällig eine ausgewählt.
+         */
+        int randomIndex = (int) (
+                Math.random()
+                        * bestQuestions.size()
+        );
+
+        return bestQuestions.get(randomIndex);
+    }
+
     private void showNextPose() {
 
         if (poseImages.length == 0) {
@@ -457,7 +587,7 @@ public class AkinatorUI extends JFrame {
         } else {
 
             /*
-             * Eine zufällige Pose auswählen.
+             * Zufällige Pose auswählen.
              * Die vorherige Pose darf nicht direkt
              * erneut angezeigt werden.
              */
@@ -543,7 +673,7 @@ public class AkinatorUI extends JFrame {
         }
 
         /*
-         * Deine vorhandene Pfadlogik bleibt erhalten.
+         * Die bestehende Pfadlogik bleibt erhalten.
          */
         String filePath =
                 "src" + imagePath;
@@ -595,7 +725,8 @@ public class AkinatorUI extends JFrame {
                         / originalHeight;
 
         /*
-         * Verhindert, dass das Bild verzerrt wird.
+         * Der kleinere Faktor verhindert,
+         * dass das Bild verzerrt wird.
          */
         double scaleFactor = Math.min(
                 widthFactor,
@@ -617,62 +748,6 @@ public class AkinatorUI extends JFrame {
         );
     }
 
-    private Question findBestQuestion() {
-
-        Question bestQuestion = null;
-
-        /*
-         * Gibt an, wie viele Personen bei einer Frage
-         * im schlechtesten Fall übrig bleiben.
-         */
-        int bestWorstCase = Integer.MAX_VALUE;
-
-        for (Question question : questions) {
-
-            int yesCount = 0;
-            int noCount = 0;
-
-            for (Person person : persons) {
-
-                if (question.matches(person)) {
-                    yesCount++;
-                } else {
-                    noCount++;
-                }
-            }
-
-            /*
-             * Diese Frage kann aktuell keine Person
-             * ausschließen und wird daher übersprungen.
-             */
-            if (yesCount == 0 || noCount == 0) {
-                continue;
-            }
-
-            /*
-             * Wir betrachten jeweils den schlechtesten Fall.
-             *
-             * Beispiel:
-             * 10 Ja / 10 Nein -> maximal 10 bleiben übrig
-             * 18 Ja / 2 Nein  -> maximal 18 bleiben übrig
-             *
-             * Die erste Frage wäre daher effektiver.
-             */
-            int worstCase = Math.max(
-                    yesCount,
-                    noCount
-            );
-
-            if (worstCase < bestWorstCase) {
-
-                bestWorstCase = worstCase;
-                bestQuestion = question;
-            }
-        }
-
-        return bestQuestion;
-    }
-
     private void answerQuestion(
             boolean userAnswer
     ) {
@@ -682,8 +757,8 @@ public class AkinatorUI extends JFrame {
         }
 
         /*
-         * Alle Personen entfernen, deren Eigenschaft
-         * nicht zur gegebenen Antwort passt.
+         * Personen entfernen, deren Eigenschaft
+         * nicht zur Antwort passt.
          */
         persons.removeIf(person ->
                 currentQuestion.matches(person)
@@ -691,8 +766,8 @@ public class AkinatorUI extends JFrame {
         );
 
         /*
-         * Die gestellte Frage wird entfernt.
-         * Sie kann dadurch nicht erneut erscheinen.
+         * Die gestellte Frage wird entfernt,
+         * damit sie nicht erneut erscheint.
          */
         questions.remove(currentQuestion);
 
@@ -709,8 +784,7 @@ public class AkinatorUI extends JFrame {
 
         /*
          * Bei "Weiß nicht" wird keine Person entfernt.
-         * Die Frage wird aber entfernt, damit sie
-         * nicht erneut gestellt wird.
+         * Die Frage wird trotzdem entfernt.
          */
         questions.remove(currentQuestion);
 

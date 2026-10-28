@@ -18,11 +18,6 @@ public class QuestionDatabase {
         ));
 
         questions.add(new Question(
-                "Ist deine Person unter 24 Jahre alt?",
-                person -> person.getAge() < 24
-        ));
-
-        questions.add(new Question(
                 "Hat deine Person dunkle Haare?",
                 person -> person.getHairColor()
                         .equalsIgnoreCase("dunkel")
