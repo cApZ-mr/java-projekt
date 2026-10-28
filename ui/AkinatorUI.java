@@ -53,7 +53,8 @@ public class AkinatorUI extends JFrame {
             "images/pose2.png",
             "images/pose3.png",
             "images/pose4.png",
-            "images/pose5.png"
+            "images/pose5.png",
+            "images/pose6.png"
     };
 
     private int currentPoseIndex = 0;
@@ -421,7 +422,14 @@ public class AkinatorUI extends JFrame {
 
         setGeniusImage(imagePath);
 
-        currentPoseIndex++;
+        int tempindex = currentPoseIndex;
+        while(currentPoseIndex == tempindex){
+                tempindex = (int)(Math.random()*6);
+                System.out.println(tempindex);
+
+
+        }
+      
 
         /*
          * Nach dem letzten Bild wieder beim ersten beginnen.
