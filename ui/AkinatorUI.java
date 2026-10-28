@@ -57,7 +57,11 @@ public class AkinatorUI extends JFrame {
             "images/pose6.png"
     };
 
-    private int currentPoseIndex = 0;
+    /*
+     * -1 bedeutet, dass beim Spielstart
+     * noch keine Pose ausgewählt wurde.
+     */
+    private int currentPoseIndex = -1;
 
     public AkinatorUI() {
 
@@ -74,8 +78,13 @@ public class AkinatorUI extends JFrame {
     private void createUI() {
 
         // Hauptbereich
-        JPanel mainPanel = new JPanel(new BorderLayout(20, 20));
-        mainPanel.setBackground(new Color(32, 28, 55));
+        JPanel mainPanel = new JPanel(
+                new BorderLayout(20, 20)
+        );
+
+        mainPanel.setBackground(
+                new Color(32, 28, 55)
+        );
 
         mainPanel.setBorder(
                 BorderFactory.createEmptyBorder(
@@ -92,22 +101,29 @@ public class AkinatorUI extends JFrame {
                 SwingConstants.CENTER
         );
 
-        titleLabel.setFont(new Font(
-                "Arial",
-                Font.BOLD,
-                32
-        ));
+        titleLabel.setFont(
+                new Font(
+                        "Arial",
+                        Font.BOLD,
+                        32
+                )
+        );
 
         titleLabel.setForeground(Color.WHITE);
 
-        mainPanel.add(titleLabel, BorderLayout.NORTH);
+        mainPanel.add(
+                titleLabel,
+                BorderLayout.NORTH
+        );
 
-        // Kompletter mittlerer Bereich
+        // Mittlerer Bereich
         JPanel centerPanel = new JPanel(
                 new BorderLayout(25, 15)
         );
 
-        centerPanel.setBackground(new Color(48, 42, 78));
+        centerPanel.setBackground(
+                new Color(48, 42, 78)
+        );
 
         centerPanel.setBorder(
                 BorderFactory.createCompoundBorder(
@@ -125,7 +141,7 @@ public class AkinatorUI extends JFrame {
         );
 
         /*
-         * Linker Bereich für das Genie-Bild.
+         * Linker Bereich für das Bild.
          */
         JPanel imagePanel = new JPanel(
                 new BorderLayout()
@@ -161,11 +177,13 @@ public class AkinatorUI extends JFrame {
 
         geniusImageLabel.setForeground(Color.WHITE);
 
-        geniusImageLabel.setFont(new Font(
-                "Arial",
-                Font.BOLD,
-                15
-        ));
+        geniusImageLabel.setFont(
+                new Font(
+                        "Arial",
+                        Font.BOLD,
+                        15
+                )
+        );
 
         imagePanel.add(
                 geniusImageLabel,
@@ -191,11 +209,13 @@ public class AkinatorUI extends JFrame {
                 SwingConstants.CENTER
         );
 
-        remainingLabel.setFont(new Font(
-                "Arial",
-                Font.PLAIN,
-                16
-        ));
+        remainingLabel.setFont(
+                new Font(
+                        "Arial",
+                        Font.PLAIN,
+                        16
+                )
+        );
 
         remainingLabel.setForeground(
                 new Color(200, 195, 225)
@@ -211,11 +231,13 @@ public class AkinatorUI extends JFrame {
                 SwingConstants.CENTER
         );
 
-        questionLabel.setFont(new Font(
-                "Arial",
-                Font.BOLD,
-                24
-        ));
+        questionLabel.setFont(
+                new Font(
+                        "Arial",
+                        Font.BOLD,
+                        24
+                )
+        );
 
         questionLabel.setForeground(Color.WHITE);
 
@@ -229,11 +251,13 @@ public class AkinatorUI extends JFrame {
                 SwingConstants.CENTER
         );
 
-        resultLabel.setFont(new Font(
-                "Arial",
-                Font.BOLD,
-                20
-        ));
+        resultLabel.setFont(
+                new Font(
+                        "Arial",
+                        Font.BOLD,
+                        20
+                )
+        );
 
         resultLabel.setForeground(
                 new Color(180, 160, 255)
@@ -320,11 +344,13 @@ public class AkinatorUI extends JFrame {
 
         JButton button = new JButton(text);
 
-        button.setFont(new Font(
-                "Arial",
-                Font.BOLD,
-                16
-        ));
+        button.setFont(
+                new Font(
+                        "Arial",
+                        Font.BOLD,
+                        16
+                )
+        );
 
         button.setBackground(backgroundColor);
         button.setForeground(Color.WHITE);
@@ -359,7 +385,7 @@ public class AkinatorUI extends JFrame {
         );
 
         currentQuestion = null;
-        currentPoseIndex = 0;
+        currentPoseIndex = -1;
 
         resultLabel.setText("");
 
@@ -387,6 +413,10 @@ public class AkinatorUI extends JFrame {
             return;
         }
 
+        /*
+         * Nach jeder Antwort wird anhand der aktuell
+         * verbliebenen Personen die beste Frage gesucht.
+         */
         currentQuestion = findBestQuestion();
 
         if (currentQuestion == null) {
@@ -402,55 +432,73 @@ public class AkinatorUI extends JFrame {
                         + "</html>"
         );
 
-        /*
-         * Bei jeder neuen Frage wird die nächste Pose angezeigt.
-         */
         showNextPose();
     }
 
     private void showNextPose() {
 
         if (poseImages.length == 0) {
+
+            geniusImageLabel.setIcon(null);
+
             geniusImageLabel.setText(
                     "Keine Bilder eingetragen."
             );
+
             return;
         }
+
+        int newPoseIndex;
+
+        if (poseImages.length == 1) {
+
+            newPoseIndex = 0;
+
+        } else {
+
+            /*
+             * Eine zufällige Pose auswählen.
+             * Die vorherige Pose darf nicht direkt
+             * erneut angezeigt werden.
+             */
+            do {
+
+                newPoseIndex = (int) (
+                        Math.random()
+                                * poseImages.length
+                );
+
+            } while (
+                    newPoseIndex == currentPoseIndex
+            );
+        }
+
+        currentPoseIndex = newPoseIndex;
 
         String imagePath =
                 poseImages[currentPoseIndex];
 
         setGeniusImage(imagePath);
-
-        int tempindex = currentPoseIndex;
-        while(currentPoseIndex == tempindex){
-                tempindex = (int)(Math.random()*6);
-                System.out.println(tempindex);
-
-
-        }
-      
-
-        /*
-         * Nach dem letzten Bild wieder beim ersten beginnen.
-         */
-        if (currentPoseIndex >= poseImages.length) {
-            currentPoseIndex = 0;
-        }
     }
 
-    private void setGeniusImage(String imagePath) {
+    private void setGeniusImage(
+            String imagePath
+    ) {
 
-        BufferedImage originalImage = loadImage(imagePath);
+        BufferedImage originalImage =
+                loadImage(imagePath);
 
         if (originalImage == null) {
+
             geniusImageLabel.setIcon(null);
 
             geniusImageLabel.setText(
-                    "<html><div style='text-align: center;'>"
+                    "<html>"
+                            + "<div style='text-align: center;'>"
                             + "Bild nicht gefunden:<br>"
                             + imagePath
-                            + "</div></html>"
+                            + "</div>"
+                            + "</html>"
             );
 
             return;
@@ -466,24 +514,27 @@ public class AkinatorUI extends JFrame {
         );
 
         geniusImageLabel.setText("");
+
         geniusImageLabel.setIcon(
                 new ImageIcon(scaledImage)
         );
     }
 
-    private BufferedImage loadImage(String imagePath) {
+    private BufferedImage loadImage(
+            String imagePath
+    ) {
 
-        /*
-         * Zuerst wird versucht, das Bild über den Classpath
-         * zu laden. Das funktioniert bei normalen Java-Projekten
-         * und später auch bei einer JAR-Datei.
-         */
-        URL imageURL = getClass().getResource(imagePath);
+        URL imageURL =
+                getClass().getResource(imagePath);
 
         if (imageURL != null) {
+
             try {
+
                 return ImageIO.read(imageURL);
+
             } catch (IOException exception) {
+
                 System.out.println(
                         "Fehler beim Laden über den Classpath: "
                                 + imagePath
@@ -492,17 +543,22 @@ public class AkinatorUI extends JFrame {
         }
 
         /*
-         * Falls VS Code den Ressourcenordner nicht automatisch
-         * erkennt, wird das Bild direkt aus src/images geladen.
+         * Deine vorhandene Pfadlogik bleibt erhalten.
          */
-        String filePath = "src" + imagePath;
+        String filePath =
+                "src" + imagePath;
 
-        File imageFile = new File(filePath);
+        File imageFile =
+                new File(filePath);
 
         if (imageFile.exists()) {
+
             try {
+
                 return ImageIO.read(imageFile);
+
             } catch (IOException exception) {
+
                 System.out.println(
                         "Fehler beim Laden der Datei: "
                                 + filePath
@@ -531,14 +587,15 @@ public class AkinatorUI extends JFrame {
                 originalImage.getHeight();
 
         double widthFactor =
-                (double) maximumWidth / originalWidth;
+                (double) maximumWidth
+                        / originalWidth;
 
         double heightFactor =
-                (double) maximumHeight / originalHeight;
+                (double) maximumHeight
+                        / originalHeight;
 
         /*
-         * Der kleinere Faktor wird verwendet,
-         * damit das Bild nicht verzerrt wird.
+         * Verhindert, dass das Bild verzerrt wird.
          */
         double scaleFactor = Math.min(
                 widthFactor,
@@ -563,37 +620,52 @@ public class AkinatorUI extends JFrame {
     private Question findBestQuestion() {
 
         Question bestQuestion = null;
-        int smallestDifference = Integer.MAX_VALUE;
+
+        /*
+         * Gibt an, wie viele Personen bei einer Frage
+         * im schlechtesten Fall übrig bleiben.
+         */
+        int bestWorstCase = Integer.MAX_VALUE;
 
         for (Question question : questions) {
 
             int yesCount = 0;
+            int noCount = 0;
 
             for (Person person : persons) {
 
                 if (question.matches(person)) {
                     yesCount++;
+                } else {
+                    noCount++;
                 }
             }
 
-            int noCount =
-                    persons.size() - yesCount;
-
             /*
-             * Wenn alle Personen dieselbe Antwort haben,
-             * ist die Frage nicht hilfreich.
+             * Diese Frage kann aktuell keine Person
+             * ausschließen und wird daher übersprungen.
              */
             if (yesCount == 0 || noCount == 0) {
                 continue;
             }
 
-            int difference = Math.abs(
-                    yesCount - noCount
+            /*
+             * Wir betrachten jeweils den schlechtesten Fall.
+             *
+             * Beispiel:
+             * 10 Ja / 10 Nein -> maximal 10 bleiben übrig
+             * 18 Ja / 2 Nein  -> maximal 18 bleiben übrig
+             *
+             * Die erste Frage wäre daher effektiver.
+             */
+            int worstCase = Math.max(
+                    yesCount,
+                    noCount
             );
 
-            if (difference < smallestDifference) {
+            if (worstCase < bestWorstCase) {
 
-                smallestDifference = difference;
+                bestWorstCase = worstCase;
                 bestQuestion = question;
             }
         }
@@ -601,18 +673,30 @@ public class AkinatorUI extends JFrame {
         return bestQuestion;
     }
 
-    private void answerQuestion(boolean userAnswer) {
+    private void answerQuestion(
+            boolean userAnswer
+    ) {
 
         if (currentQuestion == null) {
             return;
         }
 
+        /*
+         * Alle Personen entfernen, deren Eigenschaft
+         * nicht zur gegebenen Antwort passt.
+         */
         persons.removeIf(person ->
                 currentQuestion.matches(person)
                         != userAnswer
         );
 
+        /*
+         * Die gestellte Frage wird entfernt.
+         * Sie kann dadurch nicht erneut erscheinen.
+         */
         questions.remove(currentQuestion);
+
+        currentQuestion = null;
 
         showNextQuestion();
     }
@@ -625,9 +709,12 @@ public class AkinatorUI extends JFrame {
 
         /*
          * Bei "Weiß nicht" wird keine Person entfernt.
-         * Nur die aktuelle Frage wird übersprungen.
+         * Die Frage wird aber entfernt, damit sie
+         * nicht erneut gestellt wird.
          */
         questions.remove(currentQuestion);
+
+        currentQuestion = null;
 
         showNextQuestion();
     }
@@ -644,6 +731,8 @@ public class AkinatorUI extends JFrame {
                 result.getName()
         );
 
+        currentQuestion = null;
+
         setAnswerButtonsEnabled(false);
     }
 
@@ -656,6 +745,8 @@ public class AkinatorUI extends JFrame {
         resultLabel.setText(
                 "Versuche es noch einmal."
         );
+
+        currentQuestion = null;
 
         setAnswerButtonsEnabled(false);
     }
@@ -671,18 +762,25 @@ public class AkinatorUI extends JFrame {
                         + "<div style='text-align: center;'>"
         );
 
-        names.append("Mögliche Personen:<br>");
+        names.append(
+                "Mögliche Personen:<br>"
+        );
 
         for (Person person : persons) {
+
             names.append(person.getName())
                     .append("<br>");
         }
 
-        names.append("</div></html>");
+        names.append(
+                "</div></html>"
+        );
 
         resultLabel.setText(
                 names.toString()
         );
+
+        currentQuestion = null;
 
         setAnswerButtonsEnabled(false);
     }
@@ -708,7 +806,9 @@ public class AkinatorUI extends JFrame {
 
         SwingUtilities.invokeLater(() -> {
 
-            AkinatorUI ui = new AkinatorUI();
+            AkinatorUI ui =
+                    new AkinatorUI();
+
             ui.setVisible(true);
         });
     }

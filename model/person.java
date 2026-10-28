@@ -9,27 +9,40 @@ public class Person {
 
     private String gender;          // Geschlecht der Person
     private LocalDate birthDate;    // Geburtsdatum der Person
-    private String hairColor;       // Haarfarbe
-    private boolean glasses;        // Trägt Brille Ja/Nein
-    private String job;             // Vertiefungsrichtung
-    private boolean beard;          // Hat Bart Ja/Nein
-    private boolean pet;            // Hat Haustier Ja/Nein
-    private boolean siblings;       // Hat Geschwister Ja/Nein
+    private String hairColor;       // Haarfarbe: dunkel oder hell
+    private boolean glasses;        // Trägt eine Brille
+    private String job;             // AE, SI, DP oder extern
+    private boolean beard;          // Hat einen Bart
+    private boolean pet;            // Hat ein Haustier
+    private boolean siblings;       // Hat Geschwister
     private String phone;           // Apple oder Android
-    private boolean driverslicense; // Hat Führerschein Ja/Nein
-    private boolean car;            // Kommt mit Auto Ja/Nein
-    private boolean city;           // Wohnt in Düsseldorf Ja/Nein
-    private boolean vegetarian;     // Ist Vegetarier/Vegan Ja/Nein
-    private boolean tea;            // Trinkt Tee Ja/Nein
-    private boolean smoke;          // Konsumiert Nikotin Ja/Nein
-    private boolean partner;        // Hat Freund/Freundin
+    private boolean driverslicense; // Hat einen Führerschein
+    private boolean car;            // Kommt mit dem Auto
+    private boolean city;           // Wohnt in Düsseldorf
+    private boolean vegetarian;     // Ist vegetarisch oder vegan
+    private boolean tea;            // Trinkt Tee
+    private boolean smoke;          // Konsumiert Nikotin
+    private boolean partner;        // Hat einen Partner oder eine Partnerin
 
-    public Person(String name, String gender, LocalDate birthDate,
-                  String hairColor, boolean glasses, String job,
-                  boolean beard, boolean pet, boolean siblings,
-                  String phone, boolean driverslicense, boolean car,
-                  boolean city, boolean vegetarian, boolean tea,
-                  boolean smoke, boolean partner) {
+    public Person(
+            String name,
+            String gender,
+            LocalDate birthDate,
+            String hairColor,
+            boolean glasses,
+            String job,
+            boolean beard,
+            boolean pet,
+            boolean siblings,
+            String phone,
+            boolean driverslicense,
+            boolean car,
+            boolean city,
+            boolean vegetarian,
+            boolean tea,
+            boolean smoke,
+            boolean partner
+    ) {
 
         this.name = name;
         this.gender = gender;
@@ -62,8 +75,20 @@ public class Person {
         return birthDate;
     }
 
+    /*
+     * Berechnet das aktuelle Alter automatisch
+     * anhand des gespeicherten Geburtsdatums.
+     */
     public int getAge() {
-        return Period.between(birthDate, LocalDate.now()).getYears();
+
+        if (birthDate == null) {
+            return 0;
+        }
+
+        return Period.between(
+                birthDate,
+                LocalDate.now()
+        ).getYears();
     }
 
     public String getHairColor() {
